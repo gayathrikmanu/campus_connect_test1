@@ -1,4 +1,3 @@
-import 'package:campus_connect_test1/pages/login.dart';
 import 'package:campus_connect_test1/pages/register_user.dart';
 import 'package:flutter/material.dart';
 

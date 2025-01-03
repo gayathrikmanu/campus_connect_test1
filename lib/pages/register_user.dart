@@ -1,15 +1,21 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:campus_connect_test1/pages/login.dart';
 import 'package:campus_connect_test1/theme/theme_data.dart';
+import 'package:campus_connect_test1/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 
 class RegisterUser extends StatelessWidget {
   const RegisterUser({super.key});
-
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+    TextEditingController usernController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
+    TextEditingController confirmPasswordController = TextEditingController();
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -18,28 +24,27 @@ class RegisterUser extends StatelessWidget {
             children: [
               Image.asset(
                 'lib/assets/shapes/topwave.png',
-                height: 180,
+                height: screenHeight * 0.15,
               ),
             ],
           ),
           Row(
             children: [
-              const SizedBox(
-                width: 48,
-              ),
+              SizedBox(width: screenHeight * 0.05),
               Image.asset(
                 'lib/assets/images/App_icon.png',
-                height: 50,
+                height: screenHeight * 0.05,
               ),
               Image.asset(
                 'lib/assets/images/Phileo Logo White 1.png',
-                height: 100,
+                height: screenHeight * 0.1,
               ),
             ],
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 30),
-            margin: EdgeInsets.symmetric(horizontal: 40),
+            margin: EdgeInsets.symmetric(
+                horizontal: 40, vertical: screenWidth * 0.05),
             decoration: BoxDecoration(
                 color: Color.fromARGB(255, 244, 244, 246),
                 borderRadius: BorderRadius.circular(45),
@@ -50,95 +55,47 @@ class RegisterUser extends StatelessWidget {
                       spreadRadius: 2,
                       offset: Offset(6, 10))
                 ]),
-            height: 450,
-            width: 400,
+            height: screenHeight * 0.48,
+            width: screenWidth * 0.8,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 48,
+                  height: screenHeight * 0.05,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: const Text(
+                  padding: EdgeInsets.only(left: screenHeight * 0.01),
+                  child: Text(
                     'Register',
                     style: TextStyle(
-                        fontSize: 24,
+                        fontSize: screenHeight * 0.035,
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 7, 113, 135)),
                   ),
                 ),
                 SizedBox(
-                  height: 8,
+                  height: screenHeight * 0.01,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      prefixIcon: Icon(
-                        Icons.person,
-                        color: Colors.black.withOpacity(0.3),
-                      ),
-                      hintText: 'Email or Username',
-                      hintStyle:
-                          TextStyle(color: Colors.black.withOpacity(0.3)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          borderSide:
-                              BorderSide(color: Colors.black.withOpacity(0.5))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 7, 113, 135),
-                              width: 2.0),
-                          borderRadius: BorderRadius.circular(50))),
-                ),
+                customTextField(
+                    hintText: 'Email or Username',
+                    prefixIcon: Icon(Icons.person),
+                    fieldController: usernController),
                 SizedBox(
-                  height: 20,
+                  height: screenHeight * 0.02,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        color: Colors.black.withOpacity(0.3),
-                      ),
-                      hintText: 'Password',
-                      hintStyle:
-                          TextStyle(color: Colors.black.withOpacity(0.3)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          borderSide:
-                              BorderSide(color: Colors.black.withOpacity(0.5))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 7, 113, 135),
-                              width: 2.0),
-                          borderRadius: BorderRadius.circular(50))),
-                ),
+                customTextField(
+                    hintText: 'Password',
+                    prefixIcon: Icon(Icons.lock),
+                    fieldController: passwordController),
                 SizedBox(
-                  height: 20,
+                  height: screenHeight * 0.02,
                 ),
-                TextField(
-                  decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      prefixIcon: Icon(
-                        Icons.lock,
-                        color: Colors.black.withOpacity(0.3),
-                      ),
-                      hintText: 'Confirm Password',
-                      hintStyle:
-                          TextStyle(color: Colors.black.withOpacity(0.3)),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          borderSide:
-                              BorderSide(color: Colors.black.withOpacity(0.5))),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 7, 113, 135),
-                              width: 2.0),
-                          borderRadius: BorderRadius.circular(50))),
-                ),
+                customTextField(
+                    hintText: 'Confirm Password',
+                    prefixIcon: Icon(Icons.lock),
+                    fieldController: confirmPasswordController),
                 SizedBox(
-                  height: 20,
+                  height: screenHeight * 0.04,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -148,13 +105,14 @@ class RegisterUser extends StatelessWidget {
                       style: ButtonStyle(
                           backgroundColor:
                               WidgetStatePropertyAll(AppColors.primaryBlue),
-                          minimumSize: WidgetStatePropertyAll(Size(100, 50))),
+                          minimumSize: WidgetStatePropertyAll(
+                              Size(screenWidth * 0.3, screenHeight * 0.055))),
                       child: Text(
                         'Register',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
-                            fontSize: 14),
+                            fontSize: screenWidth * 0.038),
                       ),
                     ),
                   ],
@@ -162,27 +120,20 @@ class RegisterUser extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                Center(
-                  child: Text(
-                    'forgot password?',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: AppColors.primaryBlueDarker,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                )
               ],
             ),
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Login()));
+            },
             child: Text(
               'Already a user? Login',
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16),
+                  fontSize: screenWidth * 0.035),
             ),
           ),
           Row(
@@ -190,7 +141,7 @@ class RegisterUser extends StatelessWidget {
             children: [
               Image.asset(
                 'lib/assets/shapes/bottomwave.png',
-                height: 210,
+                height: screenHeight * 0.2,
               ),
             ],
           ),
